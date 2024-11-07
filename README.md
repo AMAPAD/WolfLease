@@ -1,9 +1,6 @@
 # WolfLease
 [![DOI](https://zenodo.org/badge/864650165.svg)](https://doi.org/10.5281/zenodo.14026735)
-![App Version](https://img.shields.io/badge/version-v2.0-blue)
-![Streamlit](https://img.shields.io/badge/built%20with-Streamlit-red)
-![Django API](https://img.shields.io/badge/Django-API-orange)
-![API Integration](https://img.shields.io/badge/API-integration-yellow)
+![App Version](https://img.shields.io/badge/version-v3.0-blue)
 ![Style Check](https://github.com/sumeetkhillare/WolfLease/actions/workflows/flake8.yml/badge.svg)
 ![Status](https://img.shields.io/badge/status-active--development-green)
 ![Run Tests](https://img.shields.io/badge/tests-passing-brightgreen)
@@ -11,9 +8,7 @@
 [![AutoPep 8](https://github.com/sumeetkhillare/WolfLease/actions/workflows/autopep8.yml/badge.svg)](https://github.com/sumeetkhillare/WolfLease/actions/workflows/autopep8.yml/)
 [![Pylint](https://github.com/sumeetkhillare/WolfLease/actions/workflows/pylint.yml/badge.svg)](https://github.com/sumeetkhillare/WolfLease/actions/workflows/pylint.yml/)
 [![Flakes](https://github.com/sumeetkhillare/WolfLease/actions/workflows/flake8.yml/badge.svg)](https://github.com/sumeetkhillare/WolfLease/actions/workflows/flake8.yml/)
-
-
-<a href="https://github.com/subodh30/WolfLease/actions">![GitHub Workflow Status](https://img.shields.io/github/workflow/status/subodh30/WolfLease/Django%20CI)</a>&nbsp;&nbsp; <a href="https://opensource.org/licenses/MIT">![GitHub](https://img.shields.io/github/license/subodh30/WolfLease)</a>&nbsp;&nbsp; ![GitHub top language](https://img.shields.io/github/languages/top/subodh30/WolfLease)&nbsp;&nbsp; <a href="https://github.com/subodh30/WolfLease/issues">![GitHub issues](https://img.shields.io/github/issues/sumeetkhillare/WolfLease)</a>&nbsp;&nbsp; <a href="https://github.com/subodh30/WolfLease/issues?q=is%3Aissue+is%3Aclosed">![GitHub closed issues](https://img.shields.io/github/issues-closed/sumeetkhillare/WolfLease)</a>&nbsp;&nbsp;
+<a href="https://opensource.org/licenses/MIT">![GitHub](https://img.shields.io/github/license/AMAPAD/WolfLease)</a>&nbsp;&nbsp; ![GitHub top language](https://img.shields.io/github/languages/top/AMAPAD/WolfLease)&nbsp;&nbsp; <a href="https://github.com/AMAPAD/WolfLease/issues">![GitHub issues](https://img.shields.io/github/issues/AMAPAD/WolfLease)</a>&nbsp;&nbsp; <a href="https://github.com/AMAPAD/WolfLease/issues?q=is%3Aissue+is%3Aclosed">![GitHub closed issues](https://img.shields.io/github/issues-closed/AMAPAD/WolfLease)</a>&nbsp;&nbsp;
 ## Description
 ![sublease1](https://github.com/subodh30/WolfLease/blob/Readme-updates/docs/image1.png?raw=true)
 
