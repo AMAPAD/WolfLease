@@ -34,4 +34,4 @@ jobs:
     - name: Upload Coverage to Coveralls
       run: coveralls
       env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.WOLFLEASE_SECRET }}
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
