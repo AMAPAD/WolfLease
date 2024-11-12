@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: ./api  # Set the build context to the 'api' folder
+      dockerfile: Dockerfile  # Dockerfile is inside the 'api' folder
+    container_name: django_backend
+    ports:
+      - "8000:8000"  # Maps container's port 8000 to localhost:8000
+    volumes:
+      - ./api:/app  # Syncs the local 'api' directory with the container's '/app' directory
+    # environment:
+    #   - DJANGO_SETTINGS_MODULE=api.settings  # Optional, if you need to set the Django settings module
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
