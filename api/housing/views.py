@@ -110,7 +110,7 @@ class UserLogin(APIView):
         try:
             user = models.User.objects.get(contact_email=contact_email)
             print(user.password, password)
-            if password == user.password:
+            if check_password(password, user.password):
                 login(request, user)
                 
                 session_id = request.session.session_key
