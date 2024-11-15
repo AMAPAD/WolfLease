@@ -86,7 +86,7 @@ def login():
 def flat_page():
     st.title("Flats Overview")
     
-    response = requests.get("http://localhost:8000/flats/")
+    response = requests.get(f"{BASE_URL}flats/")
     if response.status_code == 200:
         flats = response.json()
         
@@ -136,7 +136,7 @@ def flat_page():
 def user_page():
     st.title("User Management")
 
-    response = requests.get("http://localhost:8000/users/")
+    response = requests.get(f"{BASE_URL}users/")
     if response.status_code == 200:
         users = response.json()
         df = pd.DataFrame(users)
@@ -193,7 +193,7 @@ def user_page():
 def lease_page():
     st.title("Lease Management")
 
-    response = requests.get("http://localhost:8000/leases/")
+    response = requests.get(f"{BASE_URL}leases/")
     if response.status_code == 200:
         leases = response.json()
         df = pd.DataFrame(leases)
