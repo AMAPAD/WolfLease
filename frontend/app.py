@@ -2,9 +2,10 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime
+import os
 
 # Define your base URL for API requests
-BASE_URL = "http://localhost:8000/"
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000/")
 
 def create_user():
     st.title("Create a New User")
