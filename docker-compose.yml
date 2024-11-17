@@ -5,13 +5,18 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=wolflease_db
+      - DATABASE_USER=your_username
+      - DATABASE_PASSWORD=your_password
     container_name: api
     ports:
       - "8000:8000"
     volumes:
       - ./api:/app
-    command: >
-      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
   frontend:
     build:
@@ -23,18 +28,18 @@ services:
     environment:
       - BASE_URL=http://api:8000/
 
-#   db:
-#     image: mariadb:10.6
-#     restart: always
-#     environment:
-#       MYSQL_ROOT_PASSWORD: your_root_password
-#       MYSQL_DATABASE: wolflease_db
-#       MYSQL_USER: your_username
-#       MYSQL_PASSWORD: your_password
-#     ports:
-#       - "3306:3306"
-#     volumes:
-#       - mariadb_data:/var/lib/mysql
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: wolflease_db
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
 
-# volumes:
-#   mariadb_data:
+volumes:
+  mariadb_data:
