@@ -273,7 +273,7 @@ def lease_page():
 def interest_page():
     st.title("User Interests")
 
-    response = requests.get("http://localhost:8000/interests/")
+    response = requests.get(f"{BASE_URL}interests/")
     if response.status_code == 200:
         interests = response.json()
         df = pd.DataFrame(interests)
@@ -414,8 +414,8 @@ def add_lease():
     tenants_list = None
     owner_list = None
     flat_identifier_list = None
-    flat_response = requests.get("http://localhost:8000/flats/")
-    response = requests.get("http://localhost:8000/users/")
+    flat_response = requests.get(f"{BASE_URL}flats/")
+    response = requests.get(f"{BASE_URL}users/")
     flat_list = None
     if response.status_code == 200:
         users = response.json()
@@ -436,20 +436,20 @@ def add_lease():
             tenant_name = st.selectbox("Tenant Name", tenants_list)
             ownername = st.selectbox("Owner Name",owner_list)
             submitted = st.form_submit_button("Create Lease")
-    if submitted:
-        data = {
-            'lease_start_date': lease_start_date.isoformat(),
-            'lease_end_date': lease_end_date.isoformat(),
-            'tenant_name': tenant_name,
-            'ownername': ownername,
-            'flat_identifier': flat_identifier,
-            'lease_identifier': flat_identifier+""+tenant_name
-        }
-        update_response = requests.post(f"{BASE_URL}leases/", json=data)
-        if update_response.status_code == 201:
-            st.success("Lease added successfully!")
-        else:
-            st.error(f"Error adding lease: {update_response.text}")
+        if submitted:
+            data = {
+                'lease_start_date': lease_start_date.isoformat(),
+                'lease_end_date': lease_end_date.isoformat(),
+                'tenant_name': tenant_name,
+                'ownername': ownername,
+                'flat_identifier': flat_identifier,
+                'lease_identifier': flat_identifier+""+tenant_name
+            }
+            update_response = requests.post(f"{BASE_URL}leases/", json=data)
+            if update_response.status_code == 201:
+                st.success("Lease added successfully!")
+            else:
+                st.error(f"Error adding lease: {update_response.text}")
 
 
 def tenant_rights_page():
@@ -462,13 +462,13 @@ def tenant_rights_page():
     st.components.v1.html(html_content, height=600, scrolling=True)
 
 def sign_lease():
-    response = requests.get("http://localhost:8000/users/")
+    response = requests.get(f"{BASE_URL}users/")
     user_list = None
     lease_identifier_list = None
     if response.status_code == 200:
         users = response.json()
         user_list = [user['username'] for user in users if user['user_type'] == 'User']
-    lease_response = requests.get("http://localhost:8000/leases")
+    lease_response = requests.get(f"{BASE_URL}leases")
     if response.status_code == 200:
         lease_response = lease_response.json()
         lease_identifier_list = [lease['lease_identifier'] for lease in lease_response]
