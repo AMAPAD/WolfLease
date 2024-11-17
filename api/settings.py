@@ -88,6 +88,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'wolflease_db',  # Your database name
+#         'USER': 'your_username',
+#         'PASSWORD': 'your_password',
+#         'HOST': 'localhost',     # Or your MariaDB host
+#         'PORT': '3306',         # Default MySQL/MariaDB port
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         }
+#    }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

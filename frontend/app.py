@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, date
 import os
 
 # Define your base URL for API requests
@@ -16,7 +16,12 @@ def create_user():
         email = st.text_input("Email")
         contact_number = st.text_input("Contact Number")
         password = st.text_input("Password", type="password")
-        dob = st.date_input("Date of Birth")
+        dob = st.date_input(
+            "Date of Birth",
+            min_value=date(1900, 1, 1),  # Allows dates from 1900
+            max_value=date.today(),       # Up to today
+            value=date.today()            # Default value
+        )
         gender = st.selectbox("Gender", ["M", "F", "O"])
         user_type = st.selectbox("User Type", ["User", "Owner"])
         pref_smoking = st.selectbox("Smoking Preference", ["Y", "N"])
