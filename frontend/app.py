@@ -94,8 +94,8 @@ def flat_page():
         df = pd.DataFrame(flats)
         
         # Reorder and rename columns for better presentation
-        df = df[['flat_identifier', 'ownername', 'rent_per_room', 'associated_apt_name', 'availability']]
-        df.columns = ['Flat ID', 'Owner', 'Rent', 'Apartment', 'Available']
+        df = df[['id', 'flat_identifier', 'ownername', 'rent_per_room', 'associated_apt_name', 'availability']]
+        df.columns = ['id', 'Flat ID', 'Owner', 'Rent', 'Apartment', 'Available']
         
         # Apply styling
         def highlight_availability(val):
@@ -129,6 +129,46 @@ def flat_page():
                 col1.write(f"**Apartment:** {flat['Apartment']}")
                 col2.write(f"**Rent:** ${flat['Rent']}")
                 col2.write(f"**Available:** {'Yes' if flat['Available'] else 'No'}")
+                
+                # Fetch reviews for this flat using the new /reviews/ endpoint
+                reviews_response = requests.get(f"{BASE_URL}flats/{flat['id']}/reviews/")
+                if reviews_response.status_code == 200:
+                    reviews = reviews_response.json()
+                    st.subheader("Reviews")
+                    if reviews:
+                        for review in reviews:
+                            st.write(f"**User:** {review['username']}")
+                            st.write(f"**Rating:** {review['rating']}/5")
+                            st.write(f"**Comment:** {review['comment']}")
+                    else:
+                        st.write("No reviews yet.")
+                else:
+                    st.error("Failed to fetch reviews.")
+                
+                # Review submission form
+                st.subheader("Submit a Review")
+                with st.form(key=f"review_form_{flat['Flat ID']}"):
+                    rating = st.slider("Rating", 1, 5, 3)
+                    comment = st.text_area("Comment")
+                    submit_button = st.form_submit_button("Submit Review")
+                    
+                    if submit_button:
+                        # Make POST request to submit the review, passing flat_identifier in the body
+                        review_data = {
+                            "flat_identifier": flat['id'],  # Include flat_identifier
+                            "rating": rating,
+                            "comment": comment
+                        }
+                        reviews_response = requests.post(
+                            f"{BASE_URL}flats/{flat['id']}/reviews/",  # Use correct flat identifier
+                            json=review_data
+                        )
+
+                        
+                        if reviews_response.status_code == 201:
+                            st.success("Review submitted successfully!")
+                        else:
+                            st.error("Failed to submit review.")
     else:
         st.error("Failed to fetch flats data")
 
