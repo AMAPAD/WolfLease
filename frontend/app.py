@@ -73,71 +73,30 @@ def login():
             st.session_state.registering = True
             st.rerun()
 
-# def flat_page():
-#     st.subheader("Flats")
-#     response = requests.get(f"http://localhost:8000/flats/")
-#     if response.status_code == 200:
-#         flats = response.json()
-#         for flat in flats:
-#             st.write(f"Flat ID: {flat['flat_identifier']}, Owner : {flat['ownername']}, Rent : {flat['rent_per_room']}, Apartment Name : {flat['associated_apt_name']} ,Availability : {flat['availability']}")
-#     else:
-#         st.error("Failed to fetch flats")
-
 def flat_page():
-    st.title("Flats Overview")
-    
+    # Fetch current user ID (replace with actual logic to get current user ID)
+    current_user_id = "actual_user_id"  # Replace with the actual user ID
+
+    # Fetch flats data
     response = requests.get(f"{BASE_URL}flats/")
     if response.status_code == 200:
         flats = response.json()
-        
-        # Convert the data to a pandas DataFrame
-        df = pd.DataFrame(flats)
-        
-        # Reorder and rename columns for better presentation
-        df = df[['id', 'flat_identifier', 'ownername', 'rent_per_room', 'associated_apt_name', 'availability']]
-        df.columns = ['id', 'Flat ID', 'Owner', 'Rent', 'Apartment', 'Available']
-        
-        # Apply styling
-        def highlight_availability(val):
-            color = 'green' if val else 'red'
-            return f'background-color: {color}; color: white;'
-        
-        styled_df = df.style.applymap(highlight_availability, subset=['Available'])
-        
-        # Display summary statistics
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Total Flats", len(df))
-        col2.metric("Available Flats", df['Available'].sum())
-        col3.metric("Average Rent", f"${df['Rent'].mean():.2f}")
-        
-        # Display the styled dataframe
-        st.dataframe(styled_df, use_container_width=True)
-        
-        # Add a filter for availability
-        st.subheader("Filter Flats")
-        show_available = st.checkbox("Show only available flats")
-        if show_available:
-            filtered_df = df[df['Available'] == True]
-            st.dataframe(filtered_df, use_container_width=True)
-        
-        # Display individual flat cards
-        st.subheader("Flat Details")
-        for _, flat in df.iterrows():
-            with st.expander(f"Flat {flat['Flat ID']}"):
+        for flat in flats:
+            with st.expander(f"Flat {flat['flat_identifier']}"):
                 col1, col2 = st.columns(2)
-                col1.write(f"**Owner:** {flat['Owner']}")
-                col1.write(f"**Apartment:** {flat['Apartment']}")
-                col2.write(f"**Rent:** ${flat['Rent']}")
-                col2.write(f"**Available:** {'Yes' if flat['Available'] else 'No'}")
+                col1.write(f"**Owner:** {flat['ownername']}")
+                col1.write(f"**Apartment:** {flat['associated_apt_name']}")
+                col2.write(f"**Rent:** ${flat['rent_per_room']}")
+                col2.write(f"**Available:** {'Yes' if flat['availability'] else 'No'}")
                 
-                # Fetch reviews for this flat using the new /reviews/ endpoint
+                # Fetch reviews for this flat
                 reviews_response = requests.get(f"{BASE_URL}flats/{flat['id']}/reviews/")
                 if reviews_response.status_code == 200:
                     reviews = reviews_response.json()
                     st.subheader("Reviews")
                     if reviews:
                         for review in reviews:
-                            st.write(f"**User:** {review['username']}")
+                            st.write(f"**User:** {review['user']}")
                             st.write(f"**Rating:** {review['rating']}/5")
                             st.write(f"**Comment:** {review['comment']}")
                     else:
@@ -147,28 +106,27 @@ def flat_page():
                 
                 # Review submission form
                 st.subheader("Submit a Review")
-                with st.form(key=f"review_form_{flat['Flat ID']}"):
+                with st.form(key=f"review_form_{flat['flat_identifier']}"):
                     rating = st.slider("Rating", 1, 5, 3)
                     comment = st.text_area("Comment")
                     submit_button = st.form_submit_button("Submit Review")
                     
                     if submit_button:
-                        # Make POST request to submit the review, passing flat_identifier in the body
+                        # Make POST request to submit the review
                         review_data = {
-                            "flat_identifier": flat['id'],  # Include flat_identifier
                             "rating": rating,
                             "comment": comment
                         }
                         reviews_response = requests.post(
-                            f"{BASE_URL}flats/{flat['id']}/reviews/",  # Use correct flat identifier
-                            json=review_data
+                            f"{BASE_URL}flats/{flat['id']}/reviews/",
+                            json=review_data,
+                            # cookies=st.session_state.cookies  # If using cookies for authentication
                         )
-
                         
                         if reviews_response.status_code == 201:
                             st.success("Review submitted successfully!")
                         else:
-                            st.error("Failed to submit review.")
+                            st.error(f"Failed to submit review: {reviews_response.json()}")
     else:
         st.error("Failed to fetch flats data")
 
