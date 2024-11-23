@@ -102,5 +102,5 @@ from .models import Review
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['flat', 'user', 'rating', 'comment']
-        read_only_fields = ['user', 'flat']
+        fields = ['flat', 'rating', 'comment']
+        read_only_fields = ['flat']

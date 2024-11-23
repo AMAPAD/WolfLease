@@ -193,4 +193,4 @@ class ReviewListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         flat_id = self.kwargs['flat_id']
         flat = get_object_or_404(Flat, id=flat_id)
-        serializer.save(flat=flat, user=self.request.user)
+        serializer.save(flat=flat)

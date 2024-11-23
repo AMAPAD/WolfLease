@@ -96,7 +96,7 @@ def flat_page():
                     st.subheader("Reviews")
                     if reviews:
                         for review in reviews:
-                            st.write(f"**User:** {review['user']}")
+                            # st.write(f"**User:** {review['user']}")
                             st.write(f"**Rating:** {review['rating']}/5")
                             st.write(f"**Comment:** {review['comment']}")
                     else:
