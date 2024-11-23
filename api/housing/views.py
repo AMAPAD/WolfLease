@@ -178,10 +178,6 @@ class ApartmentViewSet(viewsets.ModelViewSet):
     queryset = models.Apartment.objects.all()
     serializer_class = serializers.ApartmentSerializer
 
-# @method_decorator(login_required, name='dispatch1')
-# class OwnerViewSet(viewsets.ModelViewSet):
-#     queryset = models.Owner.objects.all()
-#     serializer_class = serializers.OwnerSerializer
 class ReviewListCreateView(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
 

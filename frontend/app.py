@@ -74,8 +74,7 @@ def login():
             st.rerun()
 
 def flat_page():
-    # Fetch current user ID (replace with actual logic to get current user ID)
-    current_user_id = "actual_user_id"  # Replace with the actual user ID
+    current_user_id = "actual_user_id"
 
     # Fetch flats data
     response = requests.get(f"{BASE_URL}flats/")
@@ -104,7 +103,6 @@ def flat_page():
                 else:
                     st.error("Failed to fetch reviews.")
                 
-                # Review submission form
                 st.subheader("Submit a Review")
                 with st.form(key=f"review_form_{flat['flat_identifier']}"):
                     rating = st.slider("Rating", 1, 5, 3)
@@ -112,7 +110,6 @@ def flat_page():
                     submit_button = st.form_submit_button("Submit Review")
                     
                     if submit_button:
-                        # Make POST request to submit the review
                         review_data = {
                             "rating": rating,
                             "comment": comment
@@ -120,7 +117,6 @@ def flat_page():
                         reviews_response = requests.post(
                             f"{BASE_URL}flats/{flat['id']}/reviews/",
                             json=review_data,
-                            # cookies=st.session_state.cookies  # If using cookies for authentication
                         )
                         
                         if reviews_response.status_code == 201:
