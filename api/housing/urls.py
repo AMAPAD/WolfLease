@@ -19,5 +19,6 @@ urlpatterns = [
     path('login/', UserLogin.as_view(), name='user_login'),
     path('logout/', UserLogout.as_view(), name='user_logout'),
     path('sign/<str:lease_identifier>/<str:username>/<str:dob>', views.sign_lease, name='sign_lease'),
+    path('flats/<uuid:flat_id>/reviews/', views.ReviewListCreateView.as_view(), name='flat_reviews'),
 ]
 '''Rest API endpoints'''

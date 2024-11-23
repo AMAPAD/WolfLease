@@ -97,3 +97,15 @@ class ApartmentSerializer(serializers.ModelSerializer):
         '''Apartment model'''
         fields = '__all__'
         '''Apartment fields'''
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Review
+        fields = ['flat', 'rating', 'comment']
+
+    def validate(self, data):
+        if not data.get('rating'):
+            raise serializers.ValidationError("Rating is required.")
+        if not data.get('comment'):
+            raise serializers.ValidationError("Comment is required.")
+        return data

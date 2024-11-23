@@ -17,6 +17,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 
@@ -179,3 +180,17 @@ class ApartmentViewSet(viewsets.ModelViewSet):
 # class OwnerViewSet(viewsets.ModelViewSet):
 #     queryset = models.Owner.objects.all()
 #     serializer_class = serializers.OwnerSerializer
+class ReviewListCreateView(generics.ListCreateAPIView):
+    serializer_class = serializers.ReviewSerializer
+
+    def get_queryset(self):
+        # Ensure the URL parameter is used to get the flat
+        flat_id = self.kwargs['flat_id']  # Get flat_id from the URL path
+        flat = get_object_or_404(models.Flat, id=flat_id)  # Use flat_id to fetch flat object
+        return models.Review.objects.filter(flat=flat)
+
+    def perform_create(self, serializer):
+        # Create the review
+        flat_id = self.kwargs['flat_id']  # Get flat_id from the URL path
+        flat = get_object_or_404(models.Flat, id=flat_id)  # Use flat_id to fetch flat object
+        serializer.save(flat=flat)
