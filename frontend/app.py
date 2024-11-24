@@ -74,6 +74,31 @@ def login():
             st.rerun()
 
 def flat_page():
+    # Define CSS for different rating levels
+    review_box_style = """
+    <style>
+    .review-box {
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        color: black;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add shadow */
+    }
+    .rating-high {
+        background-color: #006400;  /* Dark green */
+    }
+    .rating-medium {
+        background-color: #FF8C00;  /* Dark orange */
+    }
+    .rating-low {
+        background-color: #B22222;  /* Firebrick red */
+    }
+    </style>
+    """
+    st.markdown(review_box_style, unsafe_allow_html=True)
+
+
     current_user_id = "actual_user_id"
 
     # Fetch flats data
@@ -95,9 +120,20 @@ def flat_page():
                     st.subheader("Reviews")
                     if reviews:
                         for review in reviews:
-                            # st.write(f"**User:** {review['user']}")
-                            st.write(f"**Rating:** {review['rating']}/5")
-                            st.write(f"**Comment:** {review['comment']}")
+                            rating_class = (
+                                "rating-high" if review['rating'] >= 4
+                                else "rating-medium" if review['rating'] == 3
+                                else "rating-low"
+                            )
+                            st.markdown(
+                                f"""
+                                <div class="review-box {rating_class}">
+                                    <p><strong>Rating:</strong> {review['rating']}/5</p>
+                                    <p><strong>Comment:</strong> {review['comment']}</p>
+                                </div>
+                                """,
+                                unsafe_allow_html=True
+                            )
                     else:
                         st.write("No reviews yet.")
                 else:
@@ -517,6 +553,7 @@ def main():
                 st.rerun()
         else:
             login()
+
 
 
 if __name__ == "__main__":
