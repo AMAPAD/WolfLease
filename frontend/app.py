@@ -98,7 +98,6 @@ def flat_page():
     """
     st.markdown(review_box_style, unsafe_allow_html=True)
 
-
     current_user_id = "actual_user_id"
 
     # Fetch flats data
@@ -112,13 +111,29 @@ def flat_page():
                 col1.write(f"**Apartment:** {flat['associated_apt_name']}")
                 col2.write(f"**Rent:** ${flat['rent_per_room']}")
                 col2.write(f"**Available:** {'Yes' if flat['availability'] else 'No'}")
-                
+
+                # Add a filter selection widget with a unique key
+                rating_filter = st.selectbox(
+                    "Filter reviews by rating:",
+                    options=["All", "Best", "Average", "Worst"],
+                    index=0,
+                    key=f"rating_filter_{flat['id']}"
+                )
+
                 # Fetch reviews for this flat
                 reviews_response = requests.get(f"{BASE_URL}flats/{flat['id']}/reviews/")
                 if reviews_response.status_code == 200:
                     reviews = reviews_response.json()
                     st.subheader("Reviews")
                     if reviews:
+                        # Apply the filter to the reviews
+                        if rating_filter == "Best":
+                            reviews = [review for review in reviews if review['rating'] >= 4]
+                        elif rating_filter == "Average":
+                            reviews = [review for review in reviews if review['rating'] == 3]
+                        elif rating_filter == "Worst":
+                            reviews = [review for review in reviews if review['rating'] <= 2]
+
                         for review in reviews:
                             rating_class = (
                                 "rating-high" if review['rating'] >= 4
@@ -138,23 +153,27 @@ def flat_page():
                         st.write("No reviews yet.")
                 else:
                     st.error("Failed to fetch reviews.")
-                
+
+                # Review submission form
                 st.subheader("Submit a Review")
                 with st.form(key=f"review_form_{flat['flat_identifier']}"):
                     rating = st.slider("Rating", 1, 5, 3)
                     comment = st.text_area("Comment")
                     submit_button = st.form_submit_button("Submit Review")
-                    
+
                     if submit_button:
+                        # Make POST request to submit the review
                         review_data = {
+                            "flat": flat['id'],
+                            "user": current_user_id,  # Replace with the actual user ID
                             "rating": rating,
                             "comment": comment
                         }
                         reviews_response = requests.post(
                             f"{BASE_URL}flats/{flat['id']}/reviews/",
-                            json=review_data,
+                            json=review_data
                         )
-                        
+
                         if reviews_response.status_code == 201:
                             st.success("Review submitted successfully!")
                         else:
