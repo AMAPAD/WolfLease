@@ -1,4 +1,5 @@
 # WolfLease
+
 [![DOI](https://zenodo.org/badge/884969191.svg)](https://doi.org/10.5281/zenodo.14226956)
 ![App Version](https://img.shields.io/badge/version-v3.0-blue)
 ![Status](https://img.shields.io/badge/status-active--development-green)
@@ -15,24 +16,24 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/AMAPAD/WolfLease)</a>&nbsp;&nbsp;
 
 ## Description
+
 ![sublease1](https://github.com/subodh30/WolfLease/blob/Readme-updates/docs/image1.png?raw=true)
 
 <br>
 
-
 Finding apartments on a lease can be a difficult and time-consuming task. We can sublease a room to save time, possibly rent, and enjoy the benefits of a shorter lease time. WolfLease is an application to help people find Apartments offering rooms on sublease and move in faster! WolfLease allows us to search for flats based on location, facilities, sublease start and end dates, etc.
 
-
- 
 Project IDEA Video :
 https://drive.google.com/file/d/1So9pzp7Hglt7QMxl0QJm10g9hcy8bAR-/view?usp=drive_link
 
-Project Workflow Demo : 
+Project Workflow Demo :
 https://drive.google.com/file/d/1UIDhQFq20Ftor684CyYbFY8sy3HyM18s/view?usp=drive_link
 
-
+Project Brainrot Video :
+https://pdftobrainrot.org/share/103258316980824109809_1732676755941
 
 - ## Built with
+
   <img src = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="40" height="40"/>
   <img src = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain-wordmark.svg" width="40" height="40"/>
 
@@ -40,45 +41,42 @@ https://drive.google.com/file/d/1UIDhQFq20Ftor684CyYbFY8sy3HyM18s/view?usp=drive
 - **Libraries used:** Django
 - **Libraries used:** Streamlit
 
-
 ## Getting started:
 
-  - ### Prerequisite:
-      - Download [Python3.11](https://www.python.org/downloads/) on your system.
+- ### Prerequisite:
 
-  - ### Run Instructions
+  - Download [Python3.11](https://www.python.org/downloads/) on your system.
 
-     **To run the site locally:**
+- ### Run Instructions
 
-     - Clone [this (Wolflease) github repo](https://github.com/sumeetkhillare/WolfLease).
+  **To run the site locally:**
 
-     - Navigate to project directory.
+  - Clone [this (Wolflease) github repo](https://github.com/sumeetkhillare/WolfLease).
 
-     - Create a virtual environment:
+  - Navigate to project directory.
 
-        `python -m venv project_env`
-    
-     - Activate the virtual environment: 
+  - Create a virtual environment:
 
-        `source project_env/bin/activate`
-    
-     - Build the virtual environment:
+    `python -m venv project_env`
 
-        `pip install -r requirements_v2.txt`
+  - Activate the virtual environment:
 
-        
-  
-     - Run:
-     
-        `python manage.py runserver`
+    `source project_env/bin/activate`
 
-         `streamlit run app.py`
+  - Build the virtual environment:
 
-     - Site will be hosted at:
-       `http://127.0.0.1:8000/`
+    `pip install -r requirements_v2.txt`
 
-       `http://127.0.0.1:3000`
+  - Run:
 
+    `python manage.py runserver`
+
+    `streamlit run app.py`
+
+  - Site will be hosted at:
+    `http://127.0.0.1:8000/`
+
+    `http://127.0.0.1:3000`
 
 ## 🚀 What's New in Version 2.0
 
@@ -110,92 +108,94 @@ Discover the future of subleasing with Wolflease 2.0 – Where finding your perf
 
 #### Admin page
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`GET`|http://localhost:8000/admin/ | Admin page |
+| HTTP Method | URL                          | Description |
+| ----------- | ---------------------------- | ----------- |
+| `GET`       | http://localhost:8000/admin/ | Admin page  |
 
 #### Owner
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/owners | Create new Owner |
-|`PUT`|http://localhost:8000/owners/{ownerId} | Update Owner by ID |
-|`GET`|http://localhost:8000/owners | Get all Owners |
-|`DELETE`|http://localhost:8000/owners/{ownerId} | Delete Owner by ID |
+| HTTP Method | URL                                    | Description        |
+| ----------- | -------------------------------------- | ------------------ |
+| `POST`      | http://localhost:8000/owners           | Create new Owner   |
+| `PUT`       | http://localhost:8000/owners/{ownerId} | Update Owner by ID |
+| `GET`       | http://localhost:8000/owners           | Get all Owners     |
+| `DELETE`    | http://localhost:8000/owners/{ownerId} | Delete Owner by ID |
 
 #### Apartment
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/apartments | Create a new Apartment |
-|`PUT`|http://localhost:8000/apartments/{apartmentID} | Update Apartment by ID |
-|`GET`|http://localhost:8000/apartments | Get all Apartments |
-|`DELETE`|http://localhost:8000/apartments/{apartmentID} | Delete Apartment by ID |
+| HTTP Method | URL                                            | Description            |
+| ----------- | ---------------------------------------------- | ---------------------- |
+| `POST`      | http://localhost:8000/apartments               | Create a new Apartment |
+| `PUT`       | http://localhost:8000/apartments/{apartmentID} | Update Apartment by ID |
+| `GET`       | http://localhost:8000/apartments               | Get all Apartments     |
+| `DELETE`    | http://localhost:8000/apartments/{apartmentID} | Delete Apartment by ID |
 
 #### Lease
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/lease | Create a new Lease |
-|`PUT`|http://localhost:8000/lease/{LeaseID} | Update Lease by ID |
-|`GET`|http://localhost:8000/lease | Get all lease |
-|`DELETE`|http://localhost:8000/lease/{LeaseID} | Delete Lease by ID |
+| HTTP Method | URL                                   | Description        |
+| ----------- | ------------------------------------- | ------------------ |
+| `POST`      | http://localhost:8000/lease           | Create a new Lease |
+| `PUT`       | http://localhost:8000/lease/{LeaseID} | Update Lease by ID |
+| `GET`       | http://localhost:8000/lease           | Get all lease      |
+| `DELETE`    | http://localhost:8000/lease/{LeaseID} | Delete Lease by ID |
 
 #### Flat
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/flats | Create a new Flat |
-|`PUT`|http://localhost:8000/flats/{flatID} | Update Flat by ID |
-|`GET`|http://localhost:8000/flats | Get all Flats |
-|`DELETE`|http://localhost:8000/flats/{flatID} | Delete Flat by ID |
-
+| HTTP Method | URL                                  | Description       |
+| ----------- | ------------------------------------ | ----------------- |
+| `POST`      | http://localhost:8000/flats          | Create a new Flat |
+| `PUT`       | http://localhost:8000/flats/{flatID} | Update Flat by ID |
+| `GET`       | http://localhost:8000/flats          | Get all Flats     |
+| `DELETE`    | http://localhost:8000/flats/{flatID} | Delete Flat by ID |
 
 #### User
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/users | Create a new User |
-|`PUT`|http://localhost:8000/users/{userID} | Update User by ID |
-|`GET`|http://localhost:8000/users | Get all Users |
-|`DELETE`|http://localhost:8000/users/{userID} | Delete User by ID |
+| HTTP Method | URL                                  | Description       |
+| ----------- | ------------------------------------ | ----------------- |
+| `POST`      | http://localhost:8000/users          | Create a new User |
+| `PUT`       | http://localhost:8000/users/{userID} | Update User by ID |
+| `GET`       | http://localhost:8000/users          | Get all Users     |
+| `DELETE`    | http://localhost:8000/users/{userID} | Delete User by ID |
 
 #### Interested
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`POST`|http://localhost:8000/interests | Create a new Interest |
-|`PUT`|http://localhost:8000/interests/{interestID} | Update Interest by ID |
-|`GET`|http://localhost:8000/interests | Get all Interests |
-|`DELETE`|http://localhost:8000/interests/{interestID} | Delete Interest by ID |
+| HTTP Method | URL                                          | Description           |
+| ----------- | -------------------------------------------- | --------------------- |
+| `POST`      | http://localhost:8000/interests              | Create a new Interest |
+| `PUT`       | http://localhost:8000/interests/{interestID} | Update Interest by ID |
+| `GET`       | http://localhost:8000/interests              | Get all Interests     |
+| `DELETE`    | http://localhost:8000/interests/{interestID} | Delete Interest by ID |
 
 ## Searching through Owners, Apartments, Lease, Flats, User Models
 
-|HTTP Method|URL|Description|
-|---|---|---|
-|`GET`|http://localhost:8000/owners?search={email} | Search for an Owner with given email |
-|`GET`|http://localhost:8000/owners?search={contact_number} | Search for an Owner with given contact number |
-|`GET`|http://localhost:8000/apartments?search={address} | Search for Apartments by address |
-|`GET`|http://localhost:8000/apartments?search={facilities} | Search for Apartments with different facilities of your choice |
-|`GET`|http://localhost:8000/apartments?search={owner} | Search for Apartments by owner |
-|`GET`|http://localhost:8000/lease?search={lease_end_date} | Search for Lease by end date |
-|`GET`|http://localhost:8000/lease?search={lease_start_date} | Search for Lease by start date |
-|`GET`|http://localhost:8000/flats?search={availabilty} | Search for Flats that are available |
-|`GET`|http://localhost:8000/flats?search={rent_per_room} | Search for Flats by rent amount |
-|`GET`|http://localhost:8000/users?search={email} | Search for an User with given email |
-|`GET`|http://localhost:8000/users?search={contact_number} | Search for a User with given contact number |
+| HTTP Method | URL                                                   | Description                                                    |
+| ----------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| `GET`       | http://localhost:8000/owners?search={email}           | Search for an Owner with given email                           |
+| `GET`       | http://localhost:8000/owners?search={contact_number}  | Search for an Owner with given contact number                  |
+| `GET`       | http://localhost:8000/apartments?search={address}     | Search for Apartments by address                               |
+| `GET`       | http://localhost:8000/apartments?search={facilities}  | Search for Apartments with different facilities of your choice |
+| `GET`       | http://localhost:8000/apartments?search={owner}       | Search for Apartments by owner                                 |
+| `GET`       | http://localhost:8000/lease?search={lease_end_date}   | Search for Lease by end date                                   |
+| `GET`       | http://localhost:8000/lease?search={lease_start_date} | Search for Lease by start date                                 |
+| `GET`       | http://localhost:8000/flats?search={availabilty}      | Search for Flats that are available                            |
+| `GET`       | http://localhost:8000/flats?search={rent_per_room}    | Search for Flats by rent amount                                |
+| `GET`       | http://localhost:8000/users?search={email}            | Search for an User with given email                            |
+| `GET`       | http://localhost:8000/users?search={contact_number}   | Search for a User with given contact number                    |
 
 ## Roadmap
-   - [List of Roadmap features](https://github.com/sumeetkhillare/WolfLease/issues?q=is%3Aopen+is%3Aissue)
+
+- [List of Roadmap features](https://github.com/sumeetkhillare/WolfLease/issues?q=is%3Aopen+is%3Aissue)
 
 ## WolfLease V2 by Group 44
+
 Team Members:
 
-1) Shashank Ajit Walke
-2) Sumeet Bapurao Khillare
-3) Xiaoqin Pi
+1. Shashank Ajit Walke
+2. Sumeet Bapurao Khillare
+3. Xiaoqin Pi
 
-## Credits 
+## Credits
+
 Project : WolfLease forked from https://github.com/subodh30/WolfLease
 
 [Subodh Gujar](https://github.com/subodh30)
