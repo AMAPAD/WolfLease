@@ -208,7 +208,7 @@ Project : WolfLease forked from https://github.com/subodh30/WolfLease
 
 [Yash Sonar](https://github.com/Yash-567)
 
-## Case Studies
+## New Case Studies
 
 ### 1. The Student Housing Search
 
@@ -220,6 +220,22 @@ Shubham, a first-year university student, is looking for off-campus housing for 
 - Before making a decision, Shubham consults the **Know Your Rights** page to understand his responsibilities as a tenant.
 
 **Potential Outcome:** Shubham could find suitable housing and compatible roommates more efficiently, reducing the stress of her housing search.
+
+### 1. Sarah, a young professional moving to a new city, is looking for the perfect roommate. She uses Wolflease 2.0 to leverage the power of LLMs in finding compatible roommates through the Profile Matching section:
+
+- Using the Roommate Match feature, Sarah creates a detailed profile, including her preferences for living arrangements, lifestyle, and budget.
+- The Profile Matching section uses LLM-powered algorithms to suggest potential roommates who share similar interests, habits, and living preferences.
+- Sarah connects with matched roommates and finds someone who aligns with her lifestyle and expectations.
+
+**Potential Outcome:** Sarah successfully finds a compatible roommate, making her relocation process smoother and more efficient.
+
+### 2. Alex, a prospective renter, is considering multiple flats and wants to make an informed decision by reading reviews from previous tenants. He uses Wolflease 2.0 to add and view reviews:
+
+- Alex adds a review for a flat he's lived in previously, sharing his thoughts on the living experience, amenities, and overall satisfaction.
+- He then browses the reviews for currently available flats, which helps him gauge the living conditions, owner responsiveness, and neighborhood dynamics.
+- The Review Section enables Alex to make an informed decision based on the shared experiences of other tenants.
+
+**Potential Outcome:** Alex can confidently choose the best flat based on genuine reviews, while also contributing valuable feedback to the community.
 
 ### 2. The Property Owner's Listing
 
