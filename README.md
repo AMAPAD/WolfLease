@@ -15,6 +15,14 @@
 ![GitHub issues](https://img.shields.io/github/issues/AMAPAD/WolfLease)</a>&nbsp;&nbsp; <a href="https://github.com/AMAPAD/WolfLease/issues?q=is%3Aissue+is%3Aclosed">
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/AMAPAD/WolfLease)</a>&nbsp;&nbsp;
 
+# Meet the Team
+
+## Version 3
+- Akshay Ashutosh Dongare
+- Anish Mulay
+- Ashwattha Phatak
+- ![Team](https://github.com/user-attachments/assets/9c9d9a1d-4efb-4952-bdd1-8bf8bb0d5afb)
+
 ## Table of Contents
 
 - [Description](#description)
