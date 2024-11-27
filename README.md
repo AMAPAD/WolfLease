@@ -15,9 +15,18 @@
 ![GitHub issues](https://img.shields.io/github/issues/AMAPAD/WolfLease)</a>&nbsp;&nbsp; <a href="https://github.com/AMAPAD/WolfLease/issues?q=is%3Aissue+is%3Aclosed">
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/AMAPAD/WolfLease)</a>&nbsp;&nbsp;
 
-## Description
+## Table of Contents
 
-![sublease1](https://github.com/subodh30/WolfLease/blob/Readme-updates/docs/image1.png?raw=true)
+- [Description](#description)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [WolfLease Endpoints](#wolflease-endpoints)
+- [Searching through Models](#searching-through-models)
+- [Roadmap](#roadmap)
+- [Credits](#credits)
+- [New Case Studies](#new-case-studies)
+
+## Description
 
 <br>
 
@@ -49,7 +58,7 @@ https://pdftobrainrot.org/share/103258316980824109809_1732676755941
 
 - ### Run Instructions
 
-  **To run the site locally:**
+  **TRADITIONAL SETUP:**
 
   - Clone [this (Wolflease) github repo](https://github.com/sumeetkhillare/WolfLease).
 
@@ -77,6 +86,27 @@ https://pdftobrainrot.org/share/103258316980824109809_1732676755941
     `http://127.0.0.1:8000/`
 
     `http://127.0.0.1:3000`
+
+    **DOCKER SETUP:**
+
+  - Clone the repository:
+
+  ```bash
+  git clone https://github.com/subodh30/WolfLease.git
+  cd WolfLease
+  ```
+
+  - Build and run with Docker Compose:
+
+  ```bash
+  docker compose up --build
+  ```
+
+  This will:
+
+  - Start the MariaDB database
+  - Launch the Django backend API (available at http://localhost:8000)
+  - Start the Streamlit frontend (available at http://localhost:8501)
 
 ## 🚀 What's New in Version 2.0
 
@@ -185,6 +215,14 @@ Discover the future of subleasing with Wolflease 2.0 – Where finding your perf
 ## Roadmap
 
 - [List of Roadmap features](https://github.com/sumeetkhillare/WolfLease/issues?q=is%3Aopen+is%3Aissue)
+
+## WolfLease V3 by Group 08
+
+Team Members:
+
+1. Ashwattha Phatak
+2. Anish Mulay
+3. Akshay Dongare
 
 ## WolfLease V2 by Group 44
 
