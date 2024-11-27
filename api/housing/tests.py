@@ -14,63 +14,63 @@ import json
 
 class OwnerTests(APITestCase):
     """
-        This is Owner test class.
+        This is models.Owner test class.
     """
     def test_create_owner(self):
         """
-        Ensure we can create a new Owner object.
+        Ensure we can create a new models.Owner object.
         """
         url = '/owners'
         data = {'contact_number': '1234567890', 'contact_email': 'test@testing.com', 'password': 'test'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Owner.objects.count(), 1)
-        self.assertEqual(Owner.objects.get().contact_email, 'test@testing.com')
+        self.assertEqual(models.Owner.objects.count(), 1)
+        self.assertEqual(models.Owner.objects.get().contact_email, 'test@testing.com')
 
     def test_show_owner(self):
         """
-        Ensure we can fetch a new Owner object.
+        Ensure we can fetch a new models.Owner object.
         """
         url = '/owners'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Owner.objects.count(), 0)
+        self.assertEqual(models.Owner.objects.count(), 0)
 
     def test_update_owner(self):
         """
-        Ensure we can update a new Owner object.
+        Ensure we can update a new models.Owner object.
         """
         url = '/owners'
         data = {'contact_number': '1234567890', 'contact_email': 'test@testing.com', 'password': 'test'}
         response = self.client.post(url, data, format='json')
-        url = url + '/' + str(Owner.objects.get().id)
+        url = url + '/' + str(models.Owner.objects.get().id)
         data = {'contact_number': '1234567890', 'contact_email': 'test123@testing.com', 'password': 'test'}
         response = self.client.patch(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(Owner.objects.count(), 1)
-        self.assertEqual(Owner.objects.get().contact_email, 'test123@testing.com')
+        self.assertEqual(models.Owner.objects.count(), 1)
+        self.assertEqual(models.Owner.objects.get().contact_email, 'test123@testing.com')
 
     def test_delete_owner(self):
         """
-        Ensure we can update a new Owner object.
+        Ensure we can update a new models.Owner object.
         """
         url = '/owners'
         data = {'contact_number': '1234567890', 'contact_email': 'test@testing.com', 'password': 'test'}
         response = self.client.post(url, data, format='json')
-        self.assertEqual(Owner.objects.count(), 1)
-        url = url + '/' + str(Owner.objects.get().id)
+        self.assertEqual(models.Owner.objects.count(), 1)
+        url = url + '/' + str(models.Owner.objects.get().id)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Owner.objects.count(), 0)
+        self.assertEqual(models.Owner.objects.count(), 0)
 
     def test_search_owner(self):
         """
-        Ensure that we can search an Owner object
+        Ensure that we can search an models.Owner object
         """
         # Creating objects for this testcase
-        Owner.objects.create(contact_number = '11111', contact_email = 'test111@testing.com', password='test123')
-        Owner.objects.create(contact_number = '22222', contact_email = 'test222@testing.com', password='test123')
-        Owner.objects.create(contact_number = '33333', contact_email = 'test333@testing.com', password='test123')
+        models.Owner.objects.create(contact_number = '11111', contact_email = 'test111@testing.com', password='test123')
+        models.Owner.objects.create(contact_number = '22222', contact_email = 'test222@testing.com', password='test123')
+        models.Owner.objects.create(contact_number = '33333', contact_email = 'test333@testing.com', password='test123')
         url = '/owners'
         url = url + '?search=test222@testing.com'
         response = self.client.get(url)
@@ -90,9 +90,9 @@ class InterestedTests(APITestCase, TestCase):
         """
             This is setUp class method to populate the database
         """
-        cls.Owner = Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
+        cls.models.Owner = models.Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
         cls.Lease = Lease.objects.create(lease_start_date='2022-10-05', lease_end_date='2026-10-04')
-        cls.Apartment = Apartment.objects.create(owner_id=Owner.objects.get(), address="Stovall Dr")
+        cls.Apartment = Apartment.objects.create(owner_id=models.Owner.objects.get(), address="Stovall Dr")
         cls.Flat = Flat.objects.create(availability='True', associated_apt_id=Apartment.objects.get(), lease_id=Lease.objects.get(), floor_number=3, rent_per_room=450)
         cls.User = User.objects.create(flat_id = Flat.objects.get(), contact_number='7876756487', dob='2000-10-07')
         cls.Intested = Interested.objects.create(user_id = User.objects.get(), flat_id = Flat.objects.get(), apartment_id = Apartment.objects.get())
@@ -155,9 +155,9 @@ class FlatTests(APITestCase, TestCase):
         """
             This is setUp class method to populate the database
         """
-        cls.Owner = Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
+        cls.models.Owner = models.Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
         cls.Lease = Lease.objects.create(lease_start_date='2022-10-05', lease_end_date='2026-10-04')
-        cls.Apartment = Apartment.objects.create(owner_id=Owner.objects.get(), address="Stovall Dr")
+        cls.Apartment = Apartment.objects.create(owner_id=models.Owner.objects.get(), address="Stovall Dr")
         cls.Flat = Flat.objects.create(availability='False', associated_apt_id=Apartment.objects.get(), lease_id=Lease.objects.get(), floor_number=3, rent_per_room=450)
         cls.User = User.objects.create(flat_id = Flat.objects.get(), contact_number='7876756487', dob='2000-10-07')
         cls.Intested = Interested.objects.create(user_id = User.objects.get(), flat_id = Flat.objects.get(), apartment_id = Apartment.objects.get())
@@ -230,9 +230,9 @@ class ApartmentTests(APITestCase, TestCase):
         """
             This is setUp class method to populate the database
         """
-        cls.Owner = Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
+        cls.models.Owner = models.Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
         cls.Lease = Lease.objects.create(lease_start_date='2022-10-05', lease_end_date='2026-10-04')
-        cls.Apartment = Apartment.objects.create(owner_id=Owner.objects.get(), address="Stovall Dr")
+        cls.Apartment = Apartment.objects.create(owner_id=models.Owner.objects.get(), address="Stovall Dr")
         cls.Flat = Flat.objects.create(availability='False', associated_apt_id=Apartment.objects.get(), lease_id=Lease.objects.get(), floor_number=3, rent_per_room=450)
         cls.User = User.objects.create(flat_id = Flat.objects.get(), contact_number='7876756487', dob='2000-10-07')
         cls.Intested = Interested.objects.create(user_id = User.objects.get(), flat_id = Flat.objects.get(), apartment_id = Apartment.objects.get())
@@ -243,7 +243,7 @@ class ApartmentTests(APITestCase, TestCase):
         """
 
         url = '/apartments'
-        data = {'address': '1130 Clarion Heights Ln, Crab Orchard Drive, Raleigh NC 27606', 'facilities' : 'Washer, Dryer, Oven, Swimming Pool, Club House, Gym', 'owner_id' : str(Owner.objects.get().id)}
+        data = {'address': '1130 Clarion Heights Ln, Crab Orchard Drive, Raleigh NC 27606', 'facilities' : 'Washer, Dryer, Oven, Swimming Pool, Club House, Gym', 'owner_id' : str(models.Owner.objects.get().id)}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Apartment.objects.count(), 2) #this is because we already created an object in the setup function and other one is right in this function
@@ -291,7 +291,7 @@ class ApartmentTests(APITestCase, TestCase):
         """
         Ensure that we can search Apartments with the given search parameters
         """
-        Apartment.objects.create(address= 'ClarionHeights', facilities = 'Washer, Dryer, Oven, Swimming Pool, Club House, Gym', owner_id = Owner.objects.get())
+        Apartment.objects.create(address= 'ClarionHeights', facilities = 'Washer, Dryer, Oven, Swimming Pool, Club House, Gym', owner_id = models.Owner.objects.get())
 
         url = '/apartments'
         # need to test this out
@@ -313,9 +313,9 @@ class UserTests(APITestCase, TestCase):
         """
         This is setUp class method to populate the database
         """     
-        cls.Owner = Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
+        cls.models.Owner = models.Owner.objects.create(contact_number='1234567890', contact_email='test@testing.com', password='test')
 
-        cls.Apartment = Apartment.objects.create(owner_id=Owner.objects.get(), address="Stovall Dr")
+        cls.Apartment = Apartment.objects.create(owner_id=models.Owner.objects.get(), address="Stovall Dr")
         cls.Lease = Lease.objects.create(lease_start_date='2022-10-05', lease_end_date='2026-10-04')
         cls.Flat = Flat.objects.create(availability='True', associated_apt_id=Apartment.objects.get(), lease_id=Lease.objects.get(), floor_number=3, rent_per_room=450)
         cls.User = User.objects.create(flat_id = Flat.objects.get(), contact_number= '7876756487', contact_email= 'rohan@gmail.com',  dob = '2000-10-07')
