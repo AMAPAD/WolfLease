@@ -1,5 +1,5 @@
 # WolfLease
-[![DOI](https://zenodo.org/badge/864650165.svg)](https://doi.org/10.5281/zenodo.14026735)
+[![DOI](https://zenodo.org/badge/884969191.svg)](https://doi.org/10.5281/zenodo.14226956)
 ![App Version](https://img.shields.io/badge/version-v3.0-blue)
 ![Status](https://img.shields.io/badge/status-active--development-green)
 ![Run Tests](https://img.shields.io/badge/tests-passing-brightgreen)
@@ -208,35 +208,20 @@ Project : WolfLease forked from https://github.com/subodh30/WolfLease
 
 [Yash Sonar](https://github.com/Yash-567)
 
-## Case Studies
+## New Case Studies
 
-### 1. The Student Housing Search
+### 1. Sarah, a young professional moving to a new city, is looking for the perfect roommate. She uses Wolflease 2.0 to leverage the power of LLMs in finding compatible roommates through the Profile Matching section:
 
-Shubham, a first-year university student, is looking for off-campus housing for the upcoming semester. he uses Wolflease 2.0 to streamline her search:
+- Using the Roommate Match feature, Sarah creates a detailed profile, including her preferences for living arrangements, lifestyle, and budget.
+- The Profile Matching section uses LLM-powered algorithms to suggest potential roommates who share similar interests, habits, and living preferences.
+- Sarah connects with matched roommates and finds someone who aligns with her lifestyle and expectations.
 
-- Using the **Comprehensive Flat Finder**, Sarah quickly browses through available subleases near him university.
-- The **Smart Filtering** feature allows him to narrow down options based on her budget and desired move-in date.
-- Sarah uses the **Roommate Match** function to find potential roommates with similar study habits and lifestyle preferences.
-- Before making a decision, Shubham consults the **Know Your Rights** page to understand his responsibilities as a tenant.
+**Potential Outcome:** Sarah successfully finds a compatible roommate, making her relocation process smoother and more efficient.
 
-**Potential Outcome:** Shubham could find suitable housing and compatible roommates more efficiently, reducing the stress of her housing search.
+### 2. Alex, a prospective renter, is considering multiple flats and wants to make an informed decision by reading reviews from previous tenants. He uses Wolflease 2.0 to add and view reviews:
 
-### 2. The Property Owner's Listing
+- Alex adds a review for a flat he's lived in previously, sharing his thoughts on the living experience, amenities, and overall satisfaction.
+- He then browses the reviews for currently available flats, which helps him gauge the living conditions, owner responsiveness, and neighborhood dynamics.
+- The Review Section enables Alex to make an informed decision based on the shared experiences of other tenants.
 
-Ketan, who owns several apartments near a college campus, wants to list his properties for sublease. He explores Wolflease 2.0's features:
-
-- Ketan uses the **Effortless Listing Management** tool to create detailed listings for each of his available apartments.
-- He appreciates the **Digital Lease Signing** feature, which could streamline the paperwork process for new tenants.
-- The **Property Management Hub** interests John as a way to potentially track his properties' occupancy and rental income in one place.
-
-**Potential Outcome:** Ketan could manage his properties more efficiently and potentially reach a wider audience of student renters.
-
-### 3. The Housing Office
-
-A local housing office is considering partnering with Wolflease 2.0 to better serve their off-campus student population. They are interested in:
-
-- The **All-in-One Platform** as a potential centralized hub for students to find university-approved off-campus housing.
-- The **Intuitive Dashboard**, which could provide valuable insights into student housing trends and needs.
-- The **Know Your Rights** feature, which aligns with their goal of educating students about responsible renting.
-
-**Potential Outcome:** This could potentially improve its off-campus housing services, leading to better housing experiences for students and improved relationships with local property owners.
+**Potential Outcome:** Alex can confidently choose the best flat based on genuine reviews, while also contributing valuable feedback to the community.
