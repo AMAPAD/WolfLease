@@ -1,7 +1,11 @@
 '''
-    This is the database strcuture of the models.
-    Create your models here.
+Copyright 2023 Ashwattha Phatak, Anish Mulay, Akshay Dongare
 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
 
 from enum import unique
@@ -45,6 +49,12 @@ class User(models.Model):
     '''Drinking preference of User'''
     pref_veg = models.CharField(default="N", max_length=2)
     '''Vegetarian preference of User'''
+    hobbies = models.CharField(max_length=256, null=True, blank=True)
+    '''Hobbies of User'''
+    roommate_preferences = models.TextField(null=True, blank=True)
+    '''Roommate preferences of User'''
+    personal_info = models.TextField(null=True, blank=True)
+    '''Personal information of User'''
     last_login = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
