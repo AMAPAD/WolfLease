@@ -17,6 +17,8 @@ services:
       - "8000:8000"
     volumes:
       - ./api:/app
+    networks:
+      - backend_network
 
   frontend:
     build:
@@ -27,3 +29,12 @@ services:
       - "8501:8501"
     environment:
       - BASE_URL=http://api:8000/
+    networks:
+      - frontend_network
+      - backend_network  # Allow communication with the backend if needed
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
