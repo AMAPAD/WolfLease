@@ -1,5 +1,5 @@
 # WolfLease
-[![DOI](https://zenodo.org/badge/864650165.svg)](https://doi.org/10.5281/zenodo.14026735)
+[![DOI](https://zenodo.org/badge/884969191.svg)](https://doi.org/10.5281/zenodo.14226956)
 ![App Version](https://img.shields.io/badge/version-v3.0-blue)
 ![Status](https://img.shields.io/badge/status-active--development-green)
 ![Run Tests](https://img.shields.io/badge/tests-passing-brightgreen)
