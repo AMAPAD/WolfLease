@@ -118,7 +118,7 @@ https://pdftobrainrot.org/share/103258316980824109809_1732676755941
     
 # What's New in Version 3.0?
 ### Click the image below
-[<img src="https://github.com/user-attachments/assets/e5986632-f7a2-45d0-a8c1-8780a7d500d3" width="100%">](https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc "WolfLease V3 AMAPAD Demo")
+[<img src="https://github.com/user-attachments/assets/1a9d02a0-bd18-4e43-a5a1-ab8583b1ae22" width="100%">](https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc "WolfLease V3 AMAPAD Demo")
 * Or use this link: [https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc](https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc)
 
 ## New features:
