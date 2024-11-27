@@ -45,6 +45,12 @@ class User(models.Model):
     '''Drinking preference of User'''
     pref_veg = models.CharField(default="N", max_length=2)
     '''Vegetarian preference of User'''
+    hobbies = models.CharField(max_length=256, null=True, blank=True)
+    '''Hobbies of User'''
+    roommate_preferences = models.TextField(null=True, blank=True)
+    '''Roommate preferences of User'''
+    personal_info = models.TextField(null=True, blank=True)
+    '''Personal information of User'''
     last_login = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

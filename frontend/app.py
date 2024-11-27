@@ -3,7 +3,10 @@ import requests
 import pandas as pd
 from datetime import datetime
 import os
-
+from groq import Groq
+from guardrails import Guard
+from guardrails.hub import ValidJson
+import json
 # Define your base URL for API requests
 BASE_URL = os.getenv("BASE_URL", "http://localhost:8000/")
 
@@ -11,18 +14,20 @@ def create_user():
     st.title("Create a New User")
 
     with st.form("user_form"):
-        username = st.text_input("Username")
-        name = st.text_input("Name")
-        email = st.text_input("Email")
-        contact_number = st.text_input("Contact Number")
-        password = st.text_input("Password", type="password")
+        username = st.text_input("Username") or None
+        name = st.text_input("Name") or None
+        email = st.text_input("Email") or None
+        contact_number = st.text_input("Contact Number") or None
+        password = st.text_input("Password", type="password") or None
         dob = st.date_input("Date of Birth")
-        gender = st.selectbox("Gender", ["M", "F", "O"])
-        user_type = st.selectbox("User Type", ["User", "Owner"])
-        pref_smoking = st.selectbox("Smoking Preference", ["Y", "N"])
-        pref_drinking = st.selectbox("Drinking Preference", ["Y", "N"])
-        pref_veg = st.selectbox("Vegetarian Preference", ["Y", "N"])
-
+        gender = st.selectbox("Gender", ["M", "F", "O"]) or None
+        user_type = st.selectbox("User Type", ["User", "Owner"]) or None
+        pref_smoking = st.selectbox("Smoking Preference", ["Y", "N"]) or None
+        pref_drinking = st.selectbox("Drinking Preference", ["Y", "N"]) or None
+        pref_veg = st.selectbox("Vegetarian Preference", ["Y", "N"]) or None
+        hobbies = st.multiselect("Hobbies", ["Reading", "Traveling", "Cooking", "Sports", "Music", "Art", "Gaming", "Technology"]) or None
+        roommate_preferences = st.text_area("What are you looking for in a roommate?") or None
+        personal_info = st.text_area("What do you want others to know about you?") or None
         submitted = st.form_submit_button("Create User")
 
     if submitted:
@@ -32,12 +37,15 @@ def create_user():
             "contact_email": email,
             "contact_number": contact_number,
             "password": password,
-            "dob": str(dob),
+            "dob": str(dob) if dob else None,
             "gender": gender,
             "user_type": user_type,
             "pref_smoking": pref_smoking,
             "pref_drinking": pref_drinking,
             "pref_veg": pref_veg,
+            "hobbies": ', '.join(hobbies) if hobbies else None,
+            "roommate_preferences": roommate_preferences,
+            "personal_info": personal_info
         }
 
         response = requests.post(f"{BASE_URL}users/", json=user_data)
@@ -486,6 +494,88 @@ def sign_lease():
         else:
             st.error(f"Error adding lease: {update_response.text}")
 
+def my_custom_groq_api(api_key=None, **kwargs):
+    messages = kwargs.pop("messages", [])
+    groq_client = Groq(api_key=api_key)
+    response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=messages, **kwargs)
+    return response.choices[0].message.content
+
+def guarded_groq_call(prompt='', api_key=None):
+    """Guards the Groq API call to ensure the output is a binary classification."""
+    guard = Guard().use(
+        ValidJson,
+        on_fail="reask"
+    )
+    validated_response = guard(
+        my_custom_groq_api,
+        messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return a JSON with the format: {user1: [username and reason of top 3 matches], user2: [username and reason of top 3 matches], ...}.DO NOT OUTPUT ANYTHING ELSE. ONLY STRICTLY OUTPUT JSON. DONT OUTPUT ANY /n or anything else"},
+                  {"role":"user", "content":"Here are the users: " + prompt}],
+        api_key=api_key
+    )
+    return validated_response
+
+def profile_matching_page():
+    st.title("Profile Matching")
+    # Ensure the user is logged in
+    if 'logged_in' in st.session_state and st.session_state.logged_in:
+        # Fetch all users' preferences and attributes
+        response = requests.get(f"{BASE_URL}users/")
+        if response.status_code == 200:
+            users = response.json()
+            current_user = next((user for user in users if user['id'] == st.session_state.user_id), None)
+            if current_user:
+                # Prepare data for the LLM
+                relevant_data = {
+                    user['id']: {
+                        'dob': user['dob'],
+                        'gender': user['gender'],
+                        'user_type': user['user_type'],
+                        'preferences': {
+                            'smoking': user['pref_smoking'],
+                            'drinking': user['pref_drinking'],
+                            'vegetarian': user['pref_veg'],
+                            'hobbies': user['hobbies']
+                        },
+                        'roommate_preferences': user['roommate_preferences'],
+                        'personal_info': user['personal_info']
+                    } for user in users
+                }
+                print("relevant_data", relevant_data)
+                prompt = json.dumps(relevant_data)
+                # Call the guarded Groq API to get matches
+                try:
+                    api_key = os.getenv("GROQ_API_KEY")
+                    llm_response = guarded_groq_call(prompt=prompt, api_key=api_key)
+                    matches = json.loads(llm_response.validated_output)
+                    print(matches)
+                    # Display the matches in a table
+                    if matches:
+                        st.subheader("Your Top Matches")
+                        if str(current_user['id']) in matches:
+                            match_data = []
+                            for match in matches[str(current_user['id'])]:
+                                matched_user_id, reason = match
+                                matched_username = next((user['username'] for user in users if user['id'] == matched_user_id), None)
+                                if matched_username:
+                                    match_data.append({"Matched User": matched_username, "Reason": reason})
+                            if match_data:
+                                st.table(match_data)
+                            else:
+                                st.write("No matches found for you.")
+                        else:
+                            st.write("No matches found for you.")
+                    else:
+                        st.write("No matches found.")
+                except Exception as e:
+                    st.error(f"Failed to process matching: {str(e)}")
+            else:
+                st.error("Current user data not found.")
+        else:
+            st.error("Failed to fetch user data")
+    else:
+        st.warning("Please log in to view your matches.")
+
+
 def main():
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
@@ -494,7 +584,7 @@ def main():
         st.session_state.registering = False
     
     if st.session_state.logged_in:
-        page = st.sidebar.selectbox("Select Page", ["User Dashboard", "Flats", "Users", "Leases", "Interests", "Add Flats", "Add Lease", "Sign Lease", "Tenant Rights"])
+        page = st.sidebar.selectbox("Select Page", ["User Dashboard", "Flats", "Users", "Leases", "Interests", "Add Flats", "Add Lease", "Sign Lease", "Tenant Rights", "Profile Matching"])
         if page == "Flats":
             flat_page()
         elif page == "Users":
@@ -511,6 +601,8 @@ def main():
             sign_lease()
         elif page == "Tenant Rights":
             tenant_rights_page()
+        elif page == "Profile Matching":
+            profile_matching_page()
         
         if st.sidebar.button("Logout"):
             st.session_state.logged_in = False
