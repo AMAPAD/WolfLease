@@ -107,7 +107,15 @@ https://pdftobrainrot.org/share/103258316980824109809_1732676755941
   - Start the MariaDB database
   - Launch the Django backend API (available at http://localhost:8000)
   - Start the Streamlit frontend (available at http://localhost:8501)
+    
+# What's New in Version 3.0?
+### Click the image below
+[<img src="https://github.com/user-attachments/assets/e5986632-f7a2-45d0-a8c1-8780a7d500d3" width="100%">](https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc "WolfLease V3 AMAPAD Demo")
+* Or use this link: [https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc](https://youtu.be/B7EZIXioVDE?si=3rICovHZsJbTV7bc)
 
+## New features:
+- Make CookBook come online as a website: [Wolf Lease](https://wolflease-fxflnwhyxtuczhtfxd7xmh.streamlit.app/) Users don't need to install the backend and frontend anymore.
+- 
 ## 🚀 What's New in Version 2.0
 
 We're excited to introduce a suite of powerful new features designed to revolutionize your subleasing experience!
