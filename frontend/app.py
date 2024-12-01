@@ -592,7 +592,7 @@ def profile_matching_page():
                     # Display the matches in a table
                     if matches:
                         st.subheader("Your Top Matches")
-                        if str(current_user['id']) in matches:
+                        if str(current_user['id']) in matches:  
                             match_data = []
                             for match in matches[str(current_user['id'])]:
                                 matched_user_id, reason = match
