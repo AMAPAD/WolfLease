@@ -79,6 +79,7 @@ def login():
                 st.session_state.logged_in = True
                 st.session_state.user_id = response.json().get('user_id')
                 st.session_state.sessionid = response.json().get('sessionid')
+                st.session_state.username = response.json().get('username')
                 st.success(f"Login successful!")
                 st.rerun()  # Refresh to reflect login
             else:
