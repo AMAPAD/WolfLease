@@ -552,26 +552,6 @@ def sign_lease():
         else:
             st.error(f"Error adding lease: {update_response.text}")
 
-def my_custom_groq_api(api_key=None, **kwargs):
-    messages = kwargs.pop("messages", [])
-    groq_client = Groq(api_key=api_key)
-    response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=messages, **kwargs)
-    return response.choices[0].message.content
-
-def guarded_groq_call(prompt='', api_key=None):
-    """Guards the Groq API call to ensure the output is a binary classification."""
-    guard = Guard().use(
-        ValidJson,
-        on_fail="reask"
-    )
-    validated_response = guard(
-        my_custom_groq_api,
-        messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return a JSON with the format: {user1: [username and reason of top 3 matches], user2: [username and reason of top 3 matches], ...}.DO NOT OUTPUT ANYTHING ELSE. ONLY STRICTLY OUTPUT JSON. DONT OUTPUT ANY /n or anything else"},
-                  {"role":"user", "content":"Here are the users: " + prompt}],
-        api_key=api_key
-    )
-    return validated_response
-
 def profile_matching_page():
     st.title("Profile Matching")
     # Ensure the user is logged in
@@ -603,8 +583,11 @@ def profile_matching_page():
                 # Call the guarded Groq API to get matches
                 try:
                     api_key = os.getenv("GROQ_API_KEY")
-                    llm_response = guarded_groq_call(prompt=prompt, api_key=api_key)
-                    matches = json.loads(llm_response.validated_output)
+                    groq_client = Groq(api_key=api_key)
+                    response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return a JSON with the format: {user1: [username and reason of top 3 matches], user2: [username and reason of top 3 matches], ...}.DO NOT OUTPUT ANYTHING ELSE. ONLY STRICTLY OUTPUT JSON. DONT OUTPUT ANY /n or anything else"},
+                  {"role":"user", "content":"Here are the users: " + prompt}])
+                    llm_response = response.choices[0].message.content
+                    matches = json.loads(llm_response)
                     print(matches)
                     # Display the matches in a table
                     if matches:
