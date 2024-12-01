@@ -628,16 +628,13 @@ def profile_matching_page():
                     else:
                         st.write("No matches found.")
                 except json.JSONDecodeError as e:
+                    api_key = os.getenv("GROQ_API_KEY")
+                    groq_client = Groq(api_key=api_key)
                     st.error("Failed to decode JSON from LLM response. Trying again without JSON format.")
-                    try:
-                        response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return the matches in plain text."},
-                      {"role":"user", "content":"Here are the users: " + prompt}])
-                        llm_response = response.choices[0].message.content
-                        st.write(llm_response)
-                    except Exception as e:
-                        st.error(f"Failed to process matching on second attempt: {str(e)}")
-                except Exception as e:
-                    st.error(f"Failed to process matching: {str(e)}")
+                    response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return the matches in plain text."},
+                    {"role":"user", "content":"Here are the users: " + prompt}])
+                    llm_response = response.choices[0].message.content
+                    st.write(llm_response)
             else:
                 st.error("Current user data not found.")
         else:
