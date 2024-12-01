@@ -74,7 +74,7 @@ def login():
     with col1:
         if st.button("Login"):
             response = requests.post(f"{BASE_URL}login/", json={'contact_email': contact_email, 'password': password})
-            
+            st.write(response.json())
             if response.status_code == 200:
                 st.session_state.logged_in = True
                 st.session_state.user_id = response.json().get('user_id')
