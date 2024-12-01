@@ -17,7 +17,7 @@ from guardrails import Guard
 from guardrails.hub import ValidJson
 import json
 # Define your base URL for API requests
-BASE_URL = os.getenv("BASE_URL", "http://localhost:8000/")
+BASE_URL = "https://wolflease.onrender.com/"
 
 def create_user():
     st.title("Create a New User")
