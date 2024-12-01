@@ -605,6 +605,15 @@ def profile_matching_page():
                             st.write("No matches found for you.")
                     else:
                         st.write("No matches found.")
+                except json.JSONDecodeError as e:
+                    st.error("Failed to decode JSON from LLM response. Trying again without JSON format.")
+                    try:
+                        response = groq_client.chat.completions.create(model="llama3-70b-8192", messages=[{"role": "system", "content": "Generate user matches based on preferences and comments. For each user, return the matches in plain text."},
+                      {"role":"user", "content":"Here are the users: " + prompt}])
+                        llm_response = response.choices[0].message.content
+                        st.write(llm_response)
+                    except Exception as e:
+                        st.error(f"Failed to process matching on second attempt: {str(e)}")
                 except Exception as e:
                     st.error(f"Failed to process matching: {str(e)}")
             else:
