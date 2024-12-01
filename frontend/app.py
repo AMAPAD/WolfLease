@@ -9,7 +9,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 import streamlit as st
 import requests
-import time
 import pandas as pd
 from datetime import datetime
 import os
@@ -75,8 +74,7 @@ def login():
     with col1:
         if st.button("Login"):
             response = requests.post(f"{BASE_URL}login/", json={'contact_email': contact_email, 'password': password})
-            st.write(response.json())
-            time.sleep(10)
+            print(response.json())
             if response.status_code == 200:
                 st.session_state.logged_in = True
                 st.session_state.user_id = response.json().get('user_id')
