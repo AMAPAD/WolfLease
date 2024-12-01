@@ -457,7 +457,7 @@ def add_flat():
 def dashboard():
     st.subheader("Dashboard")
     username = st.session_state.get('username')
-    user_response = requests.get(f"{BASE_URL}users/{username}")
+    user_response = requests.get(f"{BASE_URL}users/{username}/")
     if user_response.status_code == 200 and user_response.json():
         user_info = user_response.json()
         st.write(f"Welcome to your dashboard, {user_info.get('name')}!")
