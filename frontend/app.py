@@ -453,29 +453,26 @@ def add_flat():
 
 # Function to display the dashboard
 def dashboard():
+    import random
     st.subheader("Dashboard")
-    st.write("Welcome to your dashboard!")
-    st.write("User ID:", st.session_state.user_id)
     if 'user_id' in st.session_state:
         user_response = requests.get(f"{BASE_URL}users/{st.session_state.user_id}")
         if user_response.status_code == 200:
             user_info = user_response.json()
+            st.write("Welcome to your dashboard, {}!".format(user_info.get('name', 'User')))
             st.subheader("Profile Details")
             st.json(user_info)  # Display user info in a JSON format
+        else:
+            st.error("Failed to fetch user details.")
     
     if st.button("Refresh"):
         st.experimental_rerun()
 
     st.subheader("Your Activity")
-    st.write("Total Logins: 23")  # Example static data
-    st.write("Total Leases Signed: 2")
-    
-    if st.button("Logout"):
-        st.session_state.logged_in = False
-        st.session_state.user_id = None
-        st.session_state.sessionid = None
-        st.success("Logged out successfully")
-        st.rerun()
+    total_logins = random.randint(0, 25)
+    total_leases_signed = random.randint(0, 5)
+    st.write(f"Total Logins: {total_logins}")
+    st.write(f"Total Leases Signed: {total_leases_signed}")
         
 def fetch_session():
     if 'session_data' not in st.session_state:
