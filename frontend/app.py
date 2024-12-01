@@ -15,7 +15,7 @@ import os
 from groq import Groq
 import json
 # Define your base URL for API requests
-BASE_URL = "https://wolflease.onrender.com"
+BASE_URL = "https://wolflease.onrender.com/"
 
 def create_user():
     st.title("Create a New User")
