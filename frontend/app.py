@@ -13,6 +13,7 @@ import pandas as pd
 from datetime import datetime
 import os
 from groq import Groq
+import random
 import json
 # Define your base URL for API requests
 BASE_URL = "https://wolflease.onrender.com/"
@@ -453,18 +454,19 @@ def add_flat():
 
 # Function to display the dashboard
 def dashboard():
-    import random
     st.subheader("Dashboard")
-    if 'user_id' in st.session_state:
-        user_response = requests.get(f"{BASE_URL}users/{st.session_state.user_id}")
+    if 'logged_in' in st.session_state and st.session_state['logged_in']:
+        user_response = requests.get(f"{BASE_URL}users/{st.session_state['user_id']}")
         if user_response.status_code == 200:
             user_info = user_response.json()
             st.write(f"Welcome to your dashboard, {user_info.get('name', 'User')}!")
             st.subheader("Profile Details")
             # Display user details in a structured format
             col1, col2 = st.columns(2)
+            col1.metric("Username", user_info.get('username', 'N/A'))
             col1.metric("Name", user_info.get('name', 'N/A'))
             col1.metric("Email", user_info.get('contact_email', 'N/A'))
+            col2.metric("Contact Number", user_info.get('contact_number', 'N/A'))
             col2.metric("Date of Birth", user_info.get('dob', 'N/A'))
             col2.metric("Gender", user_info.get('gender', 'N/A'))
         else:
