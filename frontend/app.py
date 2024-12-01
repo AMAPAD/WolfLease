@@ -74,12 +74,10 @@ def login():
     with col1:
         if st.button("Login"):
             response = requests.post(f"{BASE_URL}login/", json={'contact_email': contact_email, 'password': password})
-            print(response.json())
             if response.status_code == 200:
                 st.session_state.logged_in = True
                 st.session_state.user_id = response.json().get('user_id')
                 st.session_state.sessionid = response.json().get('sessionid')
-                st.session_state.username = response.json().get('username')
                 st.success(f"Login successful!")
                 st.rerun()  # Refresh to reflect login
             else:
@@ -455,27 +453,29 @@ def add_flat():
 
 # Function to display the dashboard
 def dashboard():
-    st.subheader("Dashboard")
-    username = st.session_state.get('username')
-    st.write(username)
-    user_response = requests.get(f"{BASE_URL}users/{username}/")
-    if user_response.status_code == 200 and user_response.json():
-        user_info = user_response.json()
-        st.write(f"Welcome to your dashboard, {user_info.get('name')}!")
-        st.subheader("Profile Details")
-        # Display user details in a structured format
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Username", user_info.get('username', 'N/A'))
-        col1.metric("Name", user_info.get('name', 'N/A'))
-        col1.metric("Email", user_info.get('contact_email', 'N/A'))
-        col2.metric("Contact Number", user_info.get('contact_number', 'N/A'))
-        col2.metric("Date of Birth", user_info.get('dob', 'N/A'))
-        col2.metric("Gender", user_info.get('gender', 'N/A'))
-        col3.metric("Smoking Preference", user_info.get('pref_smoking', 'N/A'))
-        col3.metric("Drinking Preference", user_info.get('pref_drinking', 'N/A'))
-        col3.metric("Vegetarian", user_info.get('pref_veg', 'N/A'))
+    if st.session_state.get('logged_in', False):
+        st.subheader("Dashboard")
+        all_users_response = requests.get(f"{BASE_URL}users/")
+        if all_users_response.status_code == 200 and all_users_response.json():
+            all_users = all_users_response.json()
+            user_info = next((user for user in all_users if user['id'] == st.session_state.user_id), None)
+            st.markdown(f"### Welcome to your dashboard, {user_info.get('name')}!")
+            st.subheader("Profile Details")
+            # Display user details in a structured format
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Username", user_info.get('username', 'N/A'))
+            col1.metric("Name", user_info.get('name', 'N/A'), delta_color="off")
+            col1.metric("Email", user_info.get('contact_email', 'N/A'))
+            col2.metric("Contact Number", user_info.get('contact_number', 'N/A'))
+            col2.metric("Date of Birth", user_info.get('dob', 'N/A'))
+            col2.metric("Gender", user_info.get('gender', 'N/A'))
+            col3.metric("Smoking Preference", user_info.get('pref_smoking', 'N/A'))
+            col3.metric("Drinking Preference", user_info.get('pref_drinking', 'N/A'))
+            col3.metric("Vegetarian", user_info.get('pref_veg', 'N/A'))
+        else:
+            st.error("Failed to fetch user details.")
     else:
-        st.error("Failed to fetch user details.")
+        st.error("You are not logged in. Please log in to view the dashboard.")
     
     if st.button("Refresh"):
         st.experimental_rerun()
