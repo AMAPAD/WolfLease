@@ -459,9 +459,14 @@ def dashboard():
         user_response = requests.get(f"{BASE_URL}users/{st.session_state.user_id}")
         if user_response.status_code == 200:
             user_info = user_response.json()
-            st.write("Welcome to your dashboard, {}!".format(user_info.get('name', 'User')))
+            st.write(f"Welcome to your dashboard, {user_info.get('name', 'User')}!")
             st.subheader("Profile Details")
-            st.json(user_info)  # Display user info in a JSON format
+            # Display user details in a structured format
+            col1, col2 = st.columns(2)
+            col1.metric("Name", user_info.get('name', 'N/A'))
+            col1.metric("Email", user_info.get('contact_email', 'N/A'))
+            col2.metric("Date of Birth", user_info.get('dob', 'N/A'))
+            col2.metric("Gender", user_info.get('gender', 'N/A'))
         else:
             st.error("Failed to fetch user details.")
     
