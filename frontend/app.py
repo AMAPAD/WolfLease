@@ -456,6 +456,19 @@ def dashboard():
     st.subheader("Dashboard")
     st.write("Welcome to your dashboard!")
     st.write("User ID:", st.session_state.user_id)
+    if 'user_id' in st.session_state:
+        user_response = requests.get(f"{BASE_URL}users/{st.session_state.user_id}")
+        if user_response.status_code == 200:
+            user_info = user_response.json()
+            st.subheader("Profile Details")
+            st.json(user_info)  # Display user info in a JSON format
+    
+    if st.button("Refresh"):
+        st.experimental_rerun()
+
+    st.subheader("Your Activity")
+    st.write("Total Logins: 23")  # Example static data
+    st.write("Total Leases Signed: 2")
     
     if st.button("Logout"):
         st.session_state.logged_in = False
@@ -635,6 +648,8 @@ def main():
         page = st.sidebar.selectbox("Select Page", ["User Dashboard", "Flats", "Users", "Leases", "Interests", "Add Flats", "Add Lease", "Sign Lease", "Tenant Rights", "Profile Matching"])
         if page == "Flats":
             flat_page()
+        elif page == "User Dashboard":
+            dashboard()
         elif page == "Users":
             user_page()
         elif page == "Leases":
